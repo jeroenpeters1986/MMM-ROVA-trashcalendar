@@ -37,17 +37,13 @@ Module.register("MMM-ROVA-trashcalendar", {
 
     // Start the module
     start: function() {
-        this.loaded = false;
         this.trashDays = [];
         this.getTrashCollectionDays();
 
         const self = this;
-
-        //Schedule updates
-        setInterval(function() {
+        setTimeout(function () {
             self.getTrashCollectionDays();
-            self.updateDom();
-        }, this.config.refInterval);
+        }, 60 * 60 * 1000); // update once an hour
     },
 
     // Import additional CSS Styles
@@ -55,7 +51,7 @@ Module.register("MMM-ROVA-trashcalendar", {
         return ['solar.css']
     },
 
-    // Contact node helper for the trash collection days
+    // Contact node_helper for the trash collection days
     getTrashCollectionDays: function() {
         this.sendSocketNotification("GET_TRASH_DATA", {
             config: this.config,
@@ -63,23 +59,13 @@ Module.register("MMM-ROVA-trashcalendar", {
         });
     },
 
-    // Handle node helper response
+    // Handle node_helper response
     socketNotificationReceived: function(notification, payload) {
         if (notification === "TRASH_DATA") {
-            let currentPower = payload.overview.currentPower.power;
-            if (currentPower > 1000) {
-                this.results[0] = (currentPower / 1000).toFixed(2) + " kW";
-            } else {
-                this.results[0] = currentPower + " Watt";
-            }
-            this.results[1] = (payload.overview.lastDayData.energy / 1000).toFixed(2) + " kWh";
-            this.results[2] = (payload.yesterday / 1000).toFixed(2) + " kWh";
-            this.results[3] = (payload.overview.lastMonthData.energy / 1000).toFixed(2) + " kWh";
-            this.loaded = true;
+            this.trashDays = payload;
             this.updateDom(1000);
         }
     },
-
 
     // Create icons
     getIconByTrashtype: function (trash_type) {

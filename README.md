@@ -28,7 +28,7 @@ house number addition:
 	position: 'middle_center',
 	config: {
 		zipCode: "8012AR",
-		houseNr: 90,
+		houseNr: "90",
 		houseNrAddition: "a"
 	}
  },

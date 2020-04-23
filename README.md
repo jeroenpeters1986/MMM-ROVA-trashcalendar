@@ -13,9 +13,10 @@ In your terminal, go to your MagicMirror's Module folder:
 cd ~/MagicMirror/modules
 ````
 
-Clone this repository:
+Clone this repository and install the dependencies:
 ````
 git clone https://github.com/jeroenpeters1986/MMM-ROVA-trashcalendar.git
+npm install
 ````
 
 Add the module to the modules array in the `config/config.js` file

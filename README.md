@@ -24,7 +24,7 @@ house number addition:
 
 ```
  {
-    module: 'MMM-trashcalendar',
+    module: 'MMM-ROVA-trashcalendar',
 	position: 'middle_center',
 	config: {
 		zipCode: "8012AR",

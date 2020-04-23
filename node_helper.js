@@ -11,6 +11,7 @@ module.exports = node_helper.create({
 			const rova_url = 'https://www.rova.nl/api/TrashCalendar/GetCalendarItems?portal=inwoners';
 			const cookiejar = request.jar();
 			const cookie = request.cookie('RovaLc_inwoners=' + payload.cookieContent);
+			console.log(cookie);
 			cookiejar.setCookie(cookie, rova_url);
 
 			let returnData = {error: true};
@@ -21,6 +22,7 @@ module.exports = node_helper.create({
 				jar: cookiejar
 			}, function (error, response, body)
 			{
+				console.log(body);
 				if (!error && response.statusCode == 200)
 				{
 					returnData = JSON.parse(body);

@@ -48,7 +48,7 @@ Module.register("MMM-ROVA-trashcalendar", {
 
     // Import additional CSS Styles
     getStyles: function() {
-        return ['solar.css']
+        return ['MMM-ROVA-trashcalendar.css']
     },
 
     // Contact node_helper for the trash collection days

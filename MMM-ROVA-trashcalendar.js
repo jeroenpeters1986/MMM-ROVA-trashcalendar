@@ -12,7 +12,8 @@ Module.register("MMM-ROVA-trashcalendar", {
         dateFormat: "dddd D MMMM"
     },
 
-    getCookie: function() {
+    // Create the content for the cookie thats being used by rova.nl to determine the trash-days
+    getCookieContent: function() {
         let requestId = 10000 + Math.floor(Math.random() * Math.floor(20000));
         let cookie = {
             Id: requestId,
@@ -32,7 +33,7 @@ Module.register("MMM-ROVA-trashcalendar", {
             City: null,
             Ip: null
         };
-        return JSON.stringify(cookie);
+        return JSON.stringify(cookie).replace(/"/g, "\\\"");
     },
 
     // Start the module
@@ -43,7 +44,7 @@ Module.register("MMM-ROVA-trashcalendar", {
         const self = this;
         setTimeout(function () {
             self.getTrashCollectionDays();
-        }, 60 * 60 * 1000); // update once an hour
+        }, 60*60*1000); // every hour
     },
 
     // Import additional CSS Styles
@@ -55,7 +56,7 @@ Module.register("MMM-ROVA-trashcalendar", {
     getTrashCollectionDays: function() {
         this.sendSocketNotification("GET_TRASH_DATA", {
             config: this.config,
-            cookieContent: this.getCookie(),
+            cookieContent: this.getCookieContent(),
         });
     },
 
@@ -138,7 +139,7 @@ Module.register("MMM-ROVA-trashcalendar", {
             return wrapper;
         }
 
-        for (let i = 0; i < this.trashDays.length; i++) {
+        for (i = 0; i < this.trashDays.length; i++) {
 
             let trashDay = this.trashDays[i];
 
@@ -160,6 +161,7 @@ Module.register("MMM-ROVA-trashcalendar", {
             } else {
                 dateContainer.innerHTML = this.capFirst(pickUpDate.format(this.config.dateFormat));
             }
+            dateContainer.innerHTML += ": " + trashDay.GarbageType;
 
             pickupContainer.appendChild(dateContainer);
 

@@ -1,35 +1,28 @@
-const axios = require('axios');
+const request = require('request');
 const node_helper = require("node_helper");
 
 module.exports = node_helper.create({
-	socketNotificationReceived: function (notification, payload) {
+	socketNotificationReceived: function(notification, payload)
+	{
 		const self = this;
 
-		if (notification == "GET_TRASH_DATA") {
-
+		if(notification === "GET_TRASH_DATA")
+		{
+			const rova_url = 'https://www.jeroenpeters.com/projecten/magicmirror/rova_api.php?z=' + payload.config.zipCode + '&h=' + payload.config.houseNr + '&ha=' + payload.config.houseNrAddition;
 			let returnData = {error: true};
 
-			axios.get("https://www.rova.nl/api/TrashCalendar/GetCalendarItems?portal=inwoners", {
-				headers: {
-					Cookie: "RovaLc_inwoners=" + payload.cookieContent
-				}
-			})
-			.then(function (response) {
-
-				console.log(response);
-				// TODO: handle bad responses
+			request({
+				method: 'GET',
+				uri: rova_url,
+			}, function (error, response, body)
+			{
 				if (!error && response.statusCode == 200)
 				{
-					console.log("MOOI");
-					returnData = JSON.parse(response);
+					returnData = JSON.parse(body);
 				}
-				self.sendSocketNotification("TRASH_DATA", returnData);
-			})
-			.catch(function (error) {
-				console.log("ERRORR");
-				console.log(error);
+
 				self.sendSocketNotification("TRASH_DATA", returnData);
 			});
 		}
-	}
+	},
 });

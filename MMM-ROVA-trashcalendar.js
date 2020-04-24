@@ -12,30 +12,6 @@ Module.register("MMM-ROVA-trashcalendar", {
         dateFormat: "dddd D MMMM"
     },
 
-    // Create the content for the cookie thats being used by rova.nl to determine the trash-days
-    getCookieContent: function() {
-        let requestId = 10000 + Math.floor(Math.random() * Math.floor(20000));
-        let cookie = {
-            Id: requestId,
-            ZipCode: this.config.zipCode,
-            HouseNumber: this.config.houseNr,
-            HouseAddition: this.config.houseNrAddition,
-            Municipality: null,
-            Province: null,
-            Firstname: null,
-            Lastname: null,
-            UserAgent: "",
-            School: null,
-            Street: null,
-            Country: null,
-            Portal: null,
-            AreaLevel: 5,
-            City: null,
-            Ip: null
-        };
-        return JSON.stringify(cookie).replace(/"/g, "\\\"");
-    },
-
     // Start the module
     start: function() {
         this.trashDays = [];
@@ -55,8 +31,7 @@ Module.register("MMM-ROVA-trashcalendar", {
     // Contact node_helper for the trash collection days
     getTrashCollectionDays: function() {
         this.sendSocketNotification("GET_TRASH_DATA", {
-            config: this.config,
-            cookieContent: this.getCookieContent(),
+            config: this.config
         });
     },
 

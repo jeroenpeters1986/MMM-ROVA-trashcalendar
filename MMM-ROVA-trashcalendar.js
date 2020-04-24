@@ -8,7 +8,7 @@ Module.register("MMM-ROVA-trashcalendar", {
     defaults: {
         zipCode: "8016AA",
         houseNr: 29,
-        houseNrAddition: null,
+        houseNrAddition: "",
         dateFormat: "dddd D MMMM"
     },
 

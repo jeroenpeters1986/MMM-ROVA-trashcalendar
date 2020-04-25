@@ -15,6 +15,7 @@ Module.register("MMM-ROVA-trashcalendar", {
     // Start the module
     start: function() {
         this.trashDays = [];
+        this.loaded = false;
         this.getTrashCollectionDays();
 
         const self = this;
@@ -39,6 +40,7 @@ Module.register("MMM-ROVA-trashcalendar", {
     socketNotificationReceived: function(notification, payload) {
         if (notification === "TRASH_DATA") {
             this.trashDays = payload;
+            this.loaded = true;
             this.updateDom(1000);
         }
     },
@@ -104,11 +106,15 @@ Module.register("MMM-ROVA-trashcalendar", {
         return (svg);
     },
 
+    capitalize: function (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+
     // Construct the DOM objects for this module
     getDom: function() {
         let wrapper = document.createElement("div");
 
-        if (this.trashDays.length === 0) {
+        if (this.loaded === false) {
             wrapper.innerHTML = this.translate("Bezig met laden...");
             wrapper.className = "dimmed light small";
             return wrapper;
@@ -132,9 +138,9 @@ Module.register("MMM-ROVA-trashcalendar", {
             } else if (moment(today).add(1, "days").isSame(pickUpDate)) {
                 dateContainer.innerHTML = "Morgen";
             } else if (moment(today).add(7, "days").isAfter(pickUpDate)) {
-                dateContainer.innerHTML = this.capFirst(pickUpDate.format("dddd"));
+                dateContainer.innerHTML = this.capitalize(pickUpDate.format("dddd"));
             } else {
-                dateContainer.innerHTML = this.capFirst(pickUpDate.format(this.config.dateFormat));
+                dateContainer.innerHTML = this.capitalize(pickUpDate.format(this.config.dateFormat));
             }
             dateContainer.innerHTML += ": " + trashDay.GarbageType;
 

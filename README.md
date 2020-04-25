@@ -35,8 +35,8 @@ house number addition:
 ```
 **Note:** If you do not have an addition on your housenumber, you can omit the last line
 
-## Sample
-![MMM-SolarEdgeLite module for MagicMirror](https://raw.githubusercontent.com/jeroenpeters1986/MMM-SolarEdgeLite/master/SolarEdgeLite.png "MMM-SolarEdgeLite module for MagicMirror")
+## Sample screenshot
+![MMM-ROVA-trashcalendar module for MagicMirror](https://raw.githubusercontent.com/jeroenpeters1986/MMM-ROVA-trashcalendar/master/MMM-ROVA-trashcalendar.png "MMM-ROVA-trashcalendar module for MagicMirror")
 
 ## Optional Config
 | **Option** | **Description** |

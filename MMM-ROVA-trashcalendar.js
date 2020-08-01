@@ -9,7 +9,8 @@ Module.register("MMM-ROVA-trashcalendar", {
         zipCode: "8016AA",
         houseNr: 29,
         houseNrAddition: "",
-        dateFormat: "dddd D MMMM"
+        dateFormat: "dddd D MMMM",
+        updateInterval: 4 * 60 * 60 * 1000 // Defaults to 4 hours
     },
 
     // Start the module
@@ -17,11 +18,7 @@ Module.register("MMM-ROVA-trashcalendar", {
         this.trashDays = [];
         this.loaded = false;
         this.getTrashCollectionDays();
-
-        const self = this;
-        setTimeout(function () {
-            self.getTrashCollectionDays();
-        }, 60*60*1000); // every hour
+        this.scheduleUpdate();
     },
 
     // Import additional CSS Styles
@@ -34,6 +31,19 @@ Module.register("MMM-ROVA-trashcalendar", {
         this.sendSocketNotification("GET_TRASH_DATA", {
             config: this.config
         });
+    },
+
+    // Schedule the update interval and update
+    scheduleUpdate: function(delay) {
+        let nextLoad = this.config.updateInterval;
+        if (typeof delay !== "undefined" && delay >= 0) {
+            nextLoad = delay;
+        }
+
+        const self = this;
+        setInterval(function() {
+            self.getTrashCollectionDays();
+        }, nextLoad);
     },
 
     // Handle node_helper response

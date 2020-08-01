@@ -43,6 +43,7 @@ house number addition:
 | **Option** | **Description** |
 | --- | --- |
 | `dateFormat` | dddd D MMMM |
+| `updateInterval` | Time to update the next pickup dates, in milliseconds |
 
 
 ## Support

@@ -8,7 +8,7 @@ module.exports = node_helper.create({
 
 		if(notification === "GET_TRASH_DATA")
 		{
-			const rova_url = 'https://www.jeroenpeters.com/projecten/magicmirror/rova_api.php?z=' + payload.config.zipCode + '&h=' + payload.config.houseNr + '&ha=' + payload.config.houseNrAddition;
+			const rova_url = 'https://www.rova.nl/api/waste-calendar/upcoming?postalcode=' + payload.config.zipCode + '&houseNumber=' + payload.config.houseNr + '&addition=' + payload.config.houseNrAddition + '&take=3';
 			let returnData = {error: true};
 
 			request({

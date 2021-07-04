@@ -142,7 +142,7 @@ Module.register("MMM-ROVA-trashcalendar", {
 
             moment.locale();
             let today = moment().startOf("day");
-            let pickUpDate = moment(trashDay.Date);
+            let pickUpDate = moment(trashDay.date);
             if (today.isSame(pickUpDate)) {
                 dateContainer.innerHTML = "Vandaag";
             } else if (moment(today).add(1, "days").isSame(pickUpDate)) {
@@ -152,13 +152,13 @@ Module.register("MMM-ROVA-trashcalendar", {
             } else {
                 dateContainer.innerHTML = this.capitalize(pickUpDate.format(this.config.dateFormat));
             }
-            dateContainer.innerHTML += ": " + trashDay.GarbageType;
+            dateContainer.innerHTML += ": " + trashDay.garbageType;
 
             pickupContainer.appendChild(dateContainer);
 
             let iconContainer = document.createElement("span");
             iconContainer.classList.add("binday-icon-container");
-            iconContainer.appendChild(this.getIconByTrashtype(trashDay.GarbageTypeCode));
+            iconContainer.appendChild(this.getIconByTrashtype(trashDay.garbageTypeCode));
 
             pickupContainer.appendChild(iconContainer);
             wrapper.appendChild(pickupContainer);

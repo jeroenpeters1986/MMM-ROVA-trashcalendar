@@ -49,7 +49,7 @@ house number addition:
 ## Support
 If you like this module and want to thank, please buy me a coffee.
 
-<a href="https://www.buymeacoffee.com/jeroenpeters" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 45px !important;width: 180px !important;" ></a>
+<a href="https://ko-fi.com/jeroenpeters" target="_blank"><img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/64f1a9ddd0246590df69ea01_kofi_long_button_blue%25402x-p-500.png" alt="Buy Me A Coffee" ></a>
 
 
 ## Changelog

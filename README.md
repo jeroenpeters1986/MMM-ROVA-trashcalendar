@@ -50,3 +50,7 @@ house number addition:
 If you like this module and want to thank, please buy me a coffee.
 
 <a href="https://www.buymeacoffee.com/jeroenpeters" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 45px !important;width: 180px !important;" ></a>
+
+
+## Changelog
+Oct 13, 2024: Replaced requests module with native fetch

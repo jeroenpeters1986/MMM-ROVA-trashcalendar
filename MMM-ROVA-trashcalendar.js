@@ -1,5 +1,5 @@
 /*
- * Magic Mirror module for displaying the dates (and which) the trashbin is emptied by ROVA
+ * Magic Mirror module for displaying the dates the (and which type of) trashbin is emptied by ROVA
  * By Jeroen Peters (jeroenpeters1986) https://github.com/jeroenpeters1986/MMM-ROVA-trashcalendar
  * MIT Licensed
  */

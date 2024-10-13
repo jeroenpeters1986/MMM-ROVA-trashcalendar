@@ -1,7 +1,10 @@
 # MMM-ROVA-trashcalendar
 A simple module for MagicMirror2 designed to show when your trash will be collected
-by the ROVA trash service in the Netherlands.
-It uses the same layout as hdurdle/MMM-WestBerksBinDay
+by the ROVA trash service in the Netherlands. ROVA is a trash management company, 
+they do not operate the whole of the Netherlands, so this module will only be
+of use if you live in these areas: https://www.rova.nl/over-ons#gemeenten
+
+This module uses the same layout as hdurdle/MMM-WestBerksBinDay
 
 ## Dependencies
   * A [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror) installation

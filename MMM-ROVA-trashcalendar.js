@@ -1,5 +1,5 @@
 /*
- * Magic Mirror module for displaying the dates the (and which type of) trashbin is emptied by ROVA
+ * MagicMirror² module for displaying the dates the (and which type of) trashbin is emptied by ROVA
  * By Jeroen Peters (jeroenpeters1986) https://github.com/jeroenpeters1986/MMM-ROVA-trashcalendar
  * MIT Licensed
  */
@@ -13,8 +13,10 @@ Module.register("MMM-ROVA-trashcalendar", {
         updateInterval: 4 * 60 * 60 * 1000 // Defaults to 4 hours
     },
 
+    requiresVersion: "2.16.0",
+
     // Start the module
-    start: function() {
+    start() {
         this.trashDays = [];
         this.loaded = false;
         this.getTrashCollectionDays();
@@ -22,32 +24,35 @@ Module.register("MMM-ROVA-trashcalendar", {
     },
 
     // Import additional CSS Styles
-    getStyles: function() {
+    getStyles() {
         return ['MMM-ROVA-trashcalendar.css']
     },
 
+    // Define required scripts.
+    getScripts() {
+        return ["moment.js"];
+    },
+
     // Contact node_helper for the trash collection days
-    getTrashCollectionDays: function() {
-        this.sendSocketNotification("GET_TRASH_DATA", {
-            config: this.config
-        });
+    getTrashCollectionDays() {
+        let config = Object.assign({}, this.config);
+        this.sendSocketNotification("GET_TRASH_DATA", config);
     },
 
     // Schedule the update interval and update
-    scheduleUpdate: function(delay) {
+    scheduleUpdate(delay) {
         let nextLoad = this.config.updateInterval;
         if (typeof delay !== "undefined" && delay >= 0) {
             nextLoad = delay;
         }
 
-        const self = this;
         setInterval(function() {
-            self.getTrashCollectionDays();
+            this.getTrashCollectionDays();
         }, nextLoad);
     },
 
     // Handle node_helper response
-    socketNotificationReceived: function(notification, payload) {
+    socketNotificationReceived(notification, payload) {
         if (notification === "TRASH_DATA") {
             this.trashDays = payload;
             this.loaded = true;
@@ -56,7 +61,7 @@ Module.register("MMM-ROVA-trashcalendar", {
     },
 
     // Create icons
-    getIconByTrashtype: function (trash_type) {
+    getIconByTrashtype(trash_type) {
 
         let color = "#64656a";
 
@@ -66,14 +71,17 @@ Module.register("MMM-ROVA-trashcalendar", {
                 color = "#64656a";
                 break;
             case 'GFT':
+            case 'GFT-EM':
                 color = "#418740";
                 break;
             case 'PLASTIC':
             case 'PMD':
+            case 'PMDZAK':
             case 'PLASTICPLUS':
                 color = "#e96c29";
                 break;
             case 'PAPIER':
+            case 'PAP':
                 color = "#2a70b8";
                 break;
             case 'DHM':
@@ -116,12 +124,12 @@ Module.register("MMM-ROVA-trashcalendar", {
         return (svg);
     },
 
-    capitalize: function (string) {
+    capitalize (string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     },
 
     // Construct the DOM objects for this module
-    getDom: function() {
+    getDom () {
         let wrapper = document.createElement("div");
 
         if (this.loaded === false) {
@@ -130,7 +138,7 @@ Module.register("MMM-ROVA-trashcalendar", {
             return wrapper;
         }
 
-        for (i = 0; i < this.trashDays.length; i++) {
+        for (let i = 0; i < this.trashDays.length; i++) {
 
             let trashDay = this.trashDays[i];
 
@@ -152,13 +160,13 @@ Module.register("MMM-ROVA-trashcalendar", {
             } else {
                 dateContainer.innerHTML = this.capitalize(pickUpDate.format(this.config.dateFormat));
             }
-            dateContainer.innerHTML += ": " + trashDay.garbageType;
+            dateContainer.innerHTML += ": " + trashDay.wasteType.title;
 
             pickupContainer.appendChild(dateContainer);
 
             let iconContainer = document.createElement("span");
             iconContainer.classList.add("binday-icon-container");
-            iconContainer.appendChild(this.getIconByTrashtype(trashDay.garbageTypeCode));
+            iconContainer.appendChild(this.getIconByTrashtype(trashDay.wasteType.code));
 
             pickupContainer.appendChild(iconContainer);
             wrapper.appendChild(pickupContainer);

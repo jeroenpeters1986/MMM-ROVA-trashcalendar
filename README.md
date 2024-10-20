@@ -1,5 +1,5 @@
 # MMM-ROVA-trashcalendar
-A simple module for MagicMirror2 designed to show when your trash will be collected
+A simple module for MagicMirror² designed to show when your trash will be collected
 by the ROVA trash service in the Netherlands. ROVA is a trash management company, 
 they do not operate the whole of the Netherlands, so this module will only be
 of use if you live in these areas: https://www.rova.nl/over-ons#gemeenten
@@ -7,7 +7,7 @@ of use if you live in these areas: https://www.rova.nl/over-ons#gemeenten
 This module uses the same layout as hdurdle/MMM-WestBerksBinDay
 
 ## Dependencies
-  * A [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror) installation
+  * A [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror) installation
 
 ## Installation
 
@@ -32,7 +32,7 @@ house number addition:
 	config: {
 		zipCode: "8012AR",
 		houseNr: "90",
-		houseNrAddition: "a"
+		houseNrAddition: ""
 	}
  },
 ```
@@ -54,6 +54,24 @@ If you like this module and want to thank, please buy me a coffee.
 
 <a href="https://ko-fi.com/jeroenpeters" target="_blank"><img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/64f1a9ddd0246590df69ea01_kofi_long_button_blue%25402x-p-500.png" alt="Buy Me A Coffee" ></a>
 
+### Why doesn't this module display anything?
+Please ensure:
+ * You are living in the ROVA service area:  https://www.rova.nl/over-ons#gemeenten
+ * Check if your zipcode + housenr are accepted on https://www.rova.nl (we rely on that)
+
+### The module return errors in the console
+Are you using a MagicMirror prio to v2.16.0?
+Then please use the older version from git  branch `requests-module`,
+`git checkout -b henk origin/henk`
+
 
 ## Changelog
-Oct 13, 2024: Replaced requests module with native fetch
+### Oct 21, 2024
+Revamped the Module to work with MM 2.16.0+
+
+Are you using an older version? Then please checkout the branch `requests-module`,
+`git checkout -b henk origin/henk`
+
+
+### Oct 13, 2024
+Replaced requests module with native fetch
